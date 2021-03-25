@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class Application {
-  @Value("${ALLOWED_ORIGINS:https://front-books-icesi.herokuapp.com/dashboard}")
+  @Value("${ALLOWED_ORIGINS:https://front-books-icesi.herokuapp.com}")
   private String allowedOrigins;
 
   public static void main(String[] args) {
