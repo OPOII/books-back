@@ -59,7 +59,13 @@ public class BooksController {
 
     @PostMapping("")
     public BookDto saveBook(@RequestBody BookDto dto) {
-        var id = UUID.randomUUID().toString();
+        var id="";
+        if(dto.getId().isEmpty() || dto.getId().isBlank()){
+            id = UUID.randomUUID().toString();
+        }else{
+            id=dto.getId();
+        }
+
         boolean verify = VerifyDuplicateBook(dto);
         books.put(id, new Book(dto.getName(), dto.getAuthor()));
         return new BookDto(id, dto.getName(), dto.getAuthor());
