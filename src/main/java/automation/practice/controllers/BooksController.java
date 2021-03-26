@@ -53,8 +53,13 @@ public class BooksController {
     }
 
     @DeleteMapping("{id}")
-    public void removeBook(@PathVariable("id") String bookId) {
-        books.remove(bookId);
+    public void removeBook(@PathVariable("id") String bookId) throws Exception {
+        if(bookId!=null && books.containsKey(bookId)){
+            books.remove(bookId);
+        }else{
+            throw new Exception("El libro no se encuentra");
+        }
+
     }
 
     @PostMapping("")
@@ -65,22 +70,40 @@ public class BooksController {
         }else{
             id=dto.getId();
         }
+        if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
+            boolean verify=VerifyDuplicateBook(dto);
+            if(verify==false){
+                books.put(id, new Book(dto.getName(), dto.getAuthor()));
+                return new BookDto(id, dto.getName(), dto.getAuthor());
+            }else{
+                throw new Exception("El libro que intenta agregar ya existe");
+            }
+        }else{
+            throw new Exception("Por favor ingrese caracteres validos");
+        }
 
-        boolean verify = VerifyDuplicateBook(dto);
+        /*boolean verify = VerifyDuplicateBook(dto);
         if(verify==false && dto.getId()!=null && dto.getName()!=null ){
             books.put(id, new Book(dto.getName(), dto.getAuthor()));
             return new BookDto(id, dto.getName(), dto.getAuthor());
         }else{
             throw new Exception("El libro ya esta en el catalogo");
         }
+        */
+         
 
     }
 
     @PutMapping("{id}")
-    public BookDto updateBook(@PathVariable("id") String bookId, @RequestBody BookDto dto) {
-        books.put(bookId, new Book(dto.getName(), dto.getAuthor()));
+    public BookDto updateBook(@PathVariable("id") String bookId, @RequestBody BookDto dto) throws Exception{
+       if(bookId!=null && bookId!=""){
+           books.put(bookId, new Book(dto.getName(), dto.getAuthor()));
 
-        return new BookDto(bookId, dto.getName(), dto.getAuthor());
+           return new BookDto(bookId, dto.getName(), dto.getAuthor());
+       }else{
+           throw new Exception("Por favor pase un parametro valido");
+       }
+
     }
 
     public boolean VerifyDuplicateBook(@RequestBody BookDto dto) {
