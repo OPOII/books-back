@@ -67,7 +67,7 @@ public class BooksController {
 
 
         var id="";
-        if(dto.getId().isEmpty() || dto.getId().isBlank()){
+        if(dto.getId()!=null || dto.getId()!=""){
             id = UUID.randomUUID().toString();
         }else{
             id=dto.getId();
