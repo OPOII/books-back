@@ -72,9 +72,11 @@ public class BooksController {
         }else{
             id=dto.getId();
         }
-        books.put(id, new Book(dto.getName(), dto.getAuthor()));
+       /* books.put(id, new Book(dto.getName(), dto.getAuthor()));
         return new BookDto(id, dto.getName(), dto.getAuthor());
-        /*if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
+        */
+        if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
+        
             boolean verify=VerifyDuplicateBook(dto);
             if(verify==false){
                 books.put(id, new Book(dto.getName(), dto.getAuthor()));
