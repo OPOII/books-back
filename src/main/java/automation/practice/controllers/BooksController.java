@@ -58,7 +58,7 @@ public class BooksController {
     }
 
     @PostMapping("")
-    public BookDto saveBook(@RequestBody BookDto dto) {
+    public BookDto saveBook(@RequestBody BookDto dto) throws Exception {
         var id="";
         if(dto.getId().isEmpty() || dto.getId().isBlank()){
             id = UUID.randomUUID().toString();
@@ -67,8 +67,13 @@ public class BooksController {
         }
 
         boolean verify = VerifyDuplicateBook(dto);
-        books.put(id, new Book(dto.getName(), dto.getAuthor()));
-        return new BookDto(id, dto.getName(), dto.getAuthor());
+        if(verify==false && dto.getId()!=null && dto.getName()!=null ){
+            books.put(id, new Book(dto.getName(), dto.getAuthor()));
+            return new BookDto(id, dto.getName(), dto.getAuthor());
+        }else{
+            throw new Exception("El libro ya esta en el catalogo");
+        }
+
     }
 
     @PutMapping("{id}")
