@@ -64,16 +64,17 @@ public class BooksController {
 
     @PostMapping("")
     public BookDto saveBook(@RequestBody BookDto dto) throws Exception {
-        var id=UUID.randomUUID().toString();
-        books.put(id, new Book(dto.getName(), dto.getAuthor()));
-        return new BookDto(id, dto.getName(), dto.getAuthor());
-       /* var id="";
+
+
+        var id="";
         if(dto.getId().isEmpty() || dto.getId().isBlank()){
             id = UUID.randomUUID().toString();
         }else{
             id=dto.getId();
         }
-        if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
+        books.put(id, new Book(dto.getName(), dto.getAuthor()));
+        return new BookDto(id, dto.getName(), dto.getAuthor());
+        /*if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
             boolean verify=VerifyDuplicateBook(dto);
             if(verify==false){
                 books.put(id, new Book(dto.getName(), dto.getAuthor()));
