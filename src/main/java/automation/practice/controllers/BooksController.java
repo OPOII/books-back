@@ -64,7 +64,10 @@ public class BooksController {
 
     @PostMapping("")
     public BookDto saveBook(@RequestBody BookDto dto) throws Exception {
-        var id="";
+        var id=UUID.randomUUID().toString();
+        books.put(id, new Book(dto.getName(), dto.getAuthor()));
+        return new BookDto(id, dto.getName(), dto.getAuthor());
+       /* var id="";
         if(dto.getId().isEmpty() || dto.getId().isBlank()){
             id = UUID.randomUUID().toString();
         }else{
@@ -90,7 +93,7 @@ public class BooksController {
             throw new Exception("El libro ya esta en el catalogo");
         }
         */
-         
+
 
     }
 
