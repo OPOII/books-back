@@ -76,7 +76,7 @@ public class BooksController {
         return new BookDto(id, dto.getName(), dto.getAuthor());
         */
         if(dto.getName()!=null && dto.getName()!="" && dto.getAuthor()!="" && dto.getAuthor()!=null){
-        
+
             boolean verify=VerifyDuplicateBook(dto);
             if(verify==false){
                 books.put(id, new Book(dto.getName(), dto.getAuthor()));
